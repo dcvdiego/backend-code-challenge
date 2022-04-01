@@ -29,6 +29,14 @@ Be careful with your decisitions. You can use the framework that you prefer, but
 
 ### My Take:
 
+I decided to go for MongoDB for this task since the file is given in JSON and there is no need for the relational capabilities of PostgreSQL
+
+I simply created a cluster in MongoDB, where the pokemon database resides, this database contains the pokemons collection (pokemon.pokemons), and each document represents a Pokemon
+
+I loaded the database with the data using a combination of mongoimport for the json file, and mongosh to add a favorite field to all documents for its functionality
+
+The API interface was done with Node.js, Express server, and GraphQL, using mongoose to connect and interact with the database and type-safety with TypeScript
+
 To run this you must do:
 
 ```
@@ -41,9 +49,9 @@ and then:
 npm run dev
 ```
 
-.env doesn't really work, but the DB_URL is the MongoDB cluster URL where pokemons is the collection
+.env doesn't really work (dotenv broken 😢), but the DB_URL is the MongoDB cluster URL where pokemons is the collection
 
-Finished! Example below:
+Example API queries below:
 When I do this query
 
 ```GraphQL
@@ -226,3 +234,5 @@ I should get
 ```
 
 where the favorite value should alternate everytime the mutation occurs
+
+Testing will be done using Jest
