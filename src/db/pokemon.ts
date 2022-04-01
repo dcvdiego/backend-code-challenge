@@ -67,6 +67,10 @@ const dimensionSchema: Schema = new Schema<Dimension>({
 });
 
 const pokemonSchema: Schema = new Schema<IPokemon>({
+  id: {
+    type: String,
+    required: true,
+  },
   name: {
     type: String,
     required: true,

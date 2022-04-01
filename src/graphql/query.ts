@@ -1,8 +1,13 @@
+import { filterByFavorite } from './../db/utils';
+import { GraphQLError } from 'graphql';
 import db from '../db/';
 
 const query = {
-  pokemons: async ({ limit }: { limit: number }, context: any) => {
-    return await db.pokemon.getAllPokemons(limit);
+  pokemons: async (
+    { limit, page }: { limit: number; page: number },
+    context: any
+  ) => {
+    return await db.pokemon.getAllPokemons(limit, page);
   },
   pokemon: async ({ id }: { id: string }, context: any) => {
     return await db.pokemon.getPokemonById(id);
@@ -10,12 +15,17 @@ const query = {
   pokemonName: async ({ name }: { name: string }, context: any) => {
     return await db.pokemon.getPokemonByName(name);
   },
-  filterPokemon: async (
-    { favorite }: { favorite?: boolean },
-    { types }: { types?: Array<string> },
+  pokemonNameSearch: async ({ name }: { name: string }, context: any) => {
+    return await db.pokemon.getPokemonBySearch(name);
+  },
+  filterByFavorite: async (
+    { favorite }: { favorite: boolean },
     context: any
   ) => {
-    return await db.pokemon.filterPokemon(favorite, types);
+    return await db.pokemon.filterByFavorite(favorite);
+  },
+  filterByType: async ({ type }: { type: string }, context: any) => {
+    return await db.pokemon.filterByType(type);
   },
   types: async (context: any) => {
     return await db.pokemon.getAllPokemonTypes();

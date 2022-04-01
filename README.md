@@ -27,3 +27,202 @@ Remember that our technology stack is:
 
 Be careful with your decisitions. You can use the framework that you prefer, but please write the challenge in JS or TS. You can choose MongoDB or PostgreSQL like database, be free but take in consideration the best database to store the data provided in the JSON file.
 
+### My Take:
+
+To run this you must do:
+
+```
+npm run build:watch
+```
+
+and then:
+
+```
+npm run dev
+```
+
+.env doesn't really work, but the DB_URL is the MongoDB cluster URL where pokemons is the collection
+
+Finished! Example below:
+When I do this query
+
+```GraphQL
+query {
+ 	pokemons(limit: 2, page:2) {
+  	name
+  	types
+}
+  pokemonNameSearch(name: "abra") {
+    name
+  }
+  filterByType(type: "Flying") {
+    name
+  }
+  filterByFavorite(favorite:true) {
+    name
+  }
+  pokemon(id:"151") {
+    name
+    classification
+  }
+  pokemonName(name:"Dragonite") {
+    name
+    favorite
+  }
+  types
+}
+```
+
+I get this:
+
+```JSON
+{
+  "data": {
+    "pokemons": [
+      {
+        "name": "Charizard",
+        "types": [
+          "Fire",
+          "Flying"
+        ]
+      },
+      {
+        "name": "Pidgeotto",
+        "types": [
+          "Normal",
+          "Flying"
+        ]
+      }
+    ],
+    "pokemonNameSearch": [
+      {
+        "name": "Kadabra"
+      },
+      {
+        "name": "Abra"
+      }
+    ],
+    "filterByType": [
+      {
+        "name": "Charizard"
+      },
+      {
+        "name": "Pidgeotto"
+      },
+      {
+        "name": "Fearow"
+      },
+      {
+        "name": "Pidgeot"
+      },
+      {
+        "name": "Butterfree"
+      },
+      {
+        "name": "Pidgey"
+      },
+      {
+        "name": "Spearow"
+      },
+      {
+        "name": "Zubat"
+      },
+      {
+        "name": "Golbat"
+      },
+      {
+        "name": "Farfetch'd"
+      },
+      {
+        "name": "Doduo"
+      },
+      {
+        "name": "Dodrio"
+      },
+      {
+        "name": "Scyther"
+      },
+      {
+        "name": "Gyarados"
+      },
+      {
+        "name": "Articuno"
+      },
+      {
+        "name": "Moltres"
+      },
+      {
+        "name": "Aerodactyl"
+      },
+      {
+        "name": "Zapdos"
+      },
+      {
+        "name": "Dragonite"
+      }
+    ],
+    "filterByFavorite": [
+      {
+        "name": "Bulbasaur"
+      }
+    ],
+    "pokemon": {
+      "name": "Mew",
+      "classification": "New Species Pokémon"
+    },
+    "pokemonName": {
+      "name": "Dragonite",
+      "favorite": false
+    },
+    "types": [
+      "Grass",
+      "Poison",
+      "Fire",
+      "Flying",
+      "Normal",
+      "Water",
+      "Bug",
+      "Electric",
+      "Ground",
+      "Fairy",
+      "Fighting",
+      "Psychic",
+      "Rock",
+      "Steel",
+      "Ice",
+      "Ghost",
+      "Dragon"
+    ]
+  }
+}
+```
+
+When I do this mutation:
+
+```GraphQL
+mutation {
+  favoritePokemon(name:"Dragonite") {
+    data {
+      name
+      favorite
+    }
+  }
+}
+```
+
+I should get
+
+```JSON
+{
+  "data": {
+    "favoritePokemon": {
+      "data": {
+        "name": "Dragonite",
+        "favorite": true
+      }
+    }
+  }
+}
+```
+
+where the favorite value should alternate everytime the mutation occurs

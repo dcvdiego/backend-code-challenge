@@ -7,9 +7,9 @@ import {
 } from '../db/pokemon';
 
 const mutation = {
-  favoritePokemon: async ({ id }: Pokemon & { id: string }, context: any) => {
+  favoritePokemon: async ({ name }: { name: string }, context: any) => {
     try {
-      const pokemon = await db.pokemon.favoritePokemon(id);
+      const pokemon = await db.pokemon.favoritePokemon(name);
       if (!pokemon) {
         return {
           data: null,
@@ -31,23 +31,5 @@ const mutation = {
     }
   },
 };
-
-interface Pokemon {
-  id: String;
-  name: String;
-  classification: String;
-  fleeRate: Number;
-  maxCP: Number;
-  maxHP: Number;
-  attacks: Attacks;
-  evolutions: [Evolutions];
-  evolutionRequirements: EvolutionRequirements;
-  height: Dimension;
-  weight: Dimension;
-  weaknesses: [String];
-  resistant: [String];
-  types: [String];
-  favorite: Boolean;
-}
 
 export default mutation;

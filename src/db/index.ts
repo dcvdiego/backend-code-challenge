@@ -4,9 +4,11 @@ import {
   getAllPokemons,
   getPokemonById,
   getPokemonByName,
+  getPokemonBySearch,
   favoritePokemon,
   getAllPokemonTypes,
-  filterPokemon,
+  filterByFavorite,
+  filterByType,
 } from './utils';
 
 export default {
@@ -17,7 +19,9 @@ export default {
     getAllPokemons,
     getPokemonByName,
     getAllPokemonTypes,
-    filterPokemon,
+    getPokemonBySearch,
+    filterByFavorite,
+    filterByType,
     favoritePokemon,
   },
 };
